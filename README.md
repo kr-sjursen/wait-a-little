@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wait a Little
 
-## Getting Started
+Wait a Little is a tool to help with gradual reduction of habits or activities
+one may want to change. Rather than requiring an all-at-once commitment, it
+allows one to make small steps: wait a little longer, reflect, and build on
+progress over time.
 
-First, run the development server:
+## How it works
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Choose something you want to reduce or change.
+2. Record each time you do it.
+3. When you feel the urge to do it again, try waiting for a short, manageable
+   interval.
+4. When the interval ends, decide whether to wait a little longer or continue
+   as usual.
+5. Review your patterns and progress over time.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A completed wait can count as progress, even if it doesn’t lead to a longer
+delay. Difficult days are part of the picture, not a reason to dismiss progress.
+Similarly, stopping the timer early is still part of the process, and proves
+that you are actively engaging with the process.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Currently, Wait a Little is in the early planning stages, and data you provide
+is only stored locally for your own use and is not transmitted to any external
+servers. This means your data remains private and under your control, but it
+also means that there is currently no cross-device synchronization.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Planned features
 
-## Learn More
+- **Activity log** — Record occurrences and see the time between them.
+- **Flexible wait timer** — Choose a manageable interval and extend it one step
+  at a time.
+- **Progress insights** — Explore averages, daily variation, and longer-term
+  trends. Compare similar days and see how patterns change.
+- **Optional cost tracking** — Track spending related to an activity and how it
+  changes as usage changes.
+- **Personal settings** — Adapt the activity, goals, and reminders to individual
+  needs.
+- **Backup and export** — Option to back up your data and export it for personal
+  use, and for transferring to other devices in the future.
 
-To learn more about Next.js, take a look at the following resources:
+## Guiding principles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Support gradual change instead of all-or-nothing goals.
+- Make small steps and longer-term progress easier to see.
+- Encourage reflection without judgment.
+- Keep the experience flexible and accessible.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technology
 
-## Deploy on Vercel
+- [Next.js](https://nextjs.org)
+- [React](https://react.dev)
+- [Tailwind CSS](https://tailwindcss.com)
+- [TypeScript](https://www.typescriptlang.org)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project status
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Early planning. Features and scope may change.
