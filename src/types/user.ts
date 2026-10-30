@@ -2,6 +2,7 @@ export interface Goal {
   id: string;
   text: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
 export interface UserData {

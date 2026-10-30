@@ -24,8 +24,30 @@ export function useUser() {
       text: trimmed,
       createdAt: new Date().toISOString(),
     };
-    saveUser({ ...getUserSnapshot(), goals: [...user.goals, goal] });
+    saveUser({ ...getUserSnapshot(), goals: [...getUserSnapshot().goals, goal] });
   }
 
-  return { user, addGoal };
+  function updateGoal(id: string, text: string) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    const current = getUserSnapshot();
+    saveUser({
+      ...current,
+      goals: current.goals.map(g =>
+        g.id === id ? { ...g, text: trimmed, updatedAt: new Date().toISOString() } : g
+      ),
+    });
+    console.log('updated goal with id: ' + id);
+  }
+
+  function deleteGoal(id: string) {
+    const current = getUserSnapshot();
+    saveUser({
+      ...current,
+      goals: current.goals.filter(g => g.id !== id)
+    });
+    console.log('deleted goal with id: ' + id);
+  }
+
+  return { user, addGoal, updateGoal, deleteGoal };
 }

@@ -2,20 +2,38 @@
 
 import { useState } from 'react';
 import ProjectButtons from '../buttons/ProjectButtons';
+import { GoalButtons } from './GoalButtons';
 import { useUser } from '@/hooks/useUser';
+import { clsx } from 'clsx';
 
+// TODO: deleting a goal removes its data. Once occurrences are linked to goals, consider the archivedAt idea from earlier instead of a hard delete.
+// TODO: add an aria-live region announcing "Goal updated" and "Goal deleted". Ideally move focus back to the Edit button after saving, since the focused input disappears.
+// TODO: Add an undo toast.
 export function Goals() {
-  const { user, addGoal } = useUser();
+  const { user, addGoal, updateGoal, deleteGoal } = useUser();
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState('');
   const [text, setText] = useState('');
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     addGoal(text);
     setText('');
   }
 
+  function startEdit(id: string, text: string) {
+    setEditingId(id);
+    setEditText(text);
+  }
+
+  function saveEdit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (editingId) updateGoal(editingId, editText);
+    setEditingId(null);
+  }
+
   return (
-    <section className='w-full max-w-1/3 p-2 border rounded-md border-gray-200'>
+    <section className='w-full min-w-1/3 p-2 border rounded-md border-gray-200'>
       <h2 className='text-lg'>Goals</h2>
       <p>Set your goals here.</p>
       <form
@@ -39,15 +57,63 @@ export function Goals() {
         />
         <ProjectButtons
           Text='Add'
+          Icon='add'
           type='submit'
           ClassName='px-4 w-fit'
         />
       </form>
-      <ul className='flex flex-col p-4 pl-6 list-disc text-left break-all hyphens-auto border rounded-md border-gray-200 gap-1'>
-        <li>Example goal</li>
-        <li>Another loooooooooooooooooooooooooooooooooooong goal</li>
-        <li>A way too fucking long goal. Like goddamn hell shit this is way too long but some users would still appreciate it because i don`t know what weird shit users will use this shit for. Is it long enough yet?</li>
-        {user?.goals.map((g) => <li key={g.id}>{g.text}</li>)}
+      <ul className={clsx(
+        'flex flex-col p-4 pl-6 list-disc text-left break-all hyphens-auto',
+        'border rounded-md border-gray-200 gap-4'
+      )}>
+        {user?.goals.map((g) => 
+          <li
+            className='flex w-full border-b border-gray-200'
+            key={g.id}
+          >
+            {editingId === g.id ? (
+              <form
+                onSubmit={saveEdit}
+                className='flex w-full gap-2'
+              >
+                <label
+                  htmlFor={`edit-${g.id}`}
+                  className='sr-only'
+                >
+                  Edit goal
+                </label>
+                <input
+                  id={`edit-${g.id}`}
+                  autoFocus
+                  autoComplete='off'
+                  value={editText}
+                  onChange={e => setEditText(e.target.value)}
+                  onKeyDown={e => e.key === 'Escape' && setEditingId(null)}
+                  className='grow'
+                />
+                <ProjectButtons
+                  Text='Save'
+                  Icon='save'
+                  type='submit'
+                />
+                <ProjectButtons
+                  Text='Cancel'
+                  type='button'
+                  onClick={() => setEditingId(null)}
+                />
+              </form>
+            ) : (
+              <>
+                <span className='grow self-center'>{g.text}&nbsp;</span>
+                <GoalButtons
+                  goalText={g.text}
+                  onEdit={() => startEdit(g.id, g.text)}
+                  onDelete={() => deleteGoal(g.id)}
+                />
+              </>
+            )}
+          </li>
+        )}
       </ul>
     </section>
   );
