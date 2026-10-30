@@ -36,7 +36,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           <SkipLink />
           <NavBar />
         </header>
-        <main id='main'>
+        <main
+          id='main'
+          className='flex flex-col items-center justify-center mx-auto mb-4 text-center'
+        >
           {children}
         </main>
         <Footer />

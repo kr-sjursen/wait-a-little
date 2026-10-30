@@ -33,7 +33,7 @@ export function Footer() {
 
   return (
     <footer className='
-      p-4 px-8 w-full border-t border-gray-200 text-end flex flex-row
+      p-8 pb-4 w-full border-t border-gray-200 text-end flex flex-row
       items-end
     '>
       <div className='
@@ -59,7 +59,7 @@ export function Footer() {
         </ul>
       </div>
       <p className='text-start mt-4 grow text-sm text-gray-500'>
-        Version: 0.0.1
+        Version: 0.1.0
       </p>
     </footer>
   );
